@@ -19,10 +19,8 @@ class Client extends discord_js_1.Client {
     loadEvents(eventsFolder) {
         const eventFiles = (0, fs_1.readdirSync)(eventsFolder).filter(file => file.endsWith('.js') && !file.startsWith('_'));
         for (const file of eventFiles) {
-            // console.log(file);
-            // console.log("-----")
             const event = require(`${eventsFolder}/${file}`).event;
-            this.addListener(event.id, (...args) => event.handle(this, ...args));
+            this.on(event.id, (...args) => event.handle(this, ...args));
         }
     }
 }
