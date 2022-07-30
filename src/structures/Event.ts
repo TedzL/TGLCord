@@ -1,5 +1,4 @@
 import { ClientEvents } from "discord.js";
-import { Client } from "../client/Client";
 import { EventHandle } from "../typings/Events";
 
 export class Event {
