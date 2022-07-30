@@ -21,7 +21,7 @@ export class Client extends BaseClient {
     loadEvents(eventsFolder: PathLike) {
         const eventFiles = readdirSync(eventsFolder).filter(file => file.endsWith('.js') && !file.startsWith('_'));
         for (const file of eventFiles) {
-            const event: Event = require(`${eventsFolder}/${file}`).event;
+            const event: Event = require(`${eventsFolder}/${file}`);
             this.on(event.id, (...args: EventArgs) => event.handle(this, ...args));
         }
     }
