@@ -56,7 +56,7 @@ export class Client extends BaseClient {
 
     loadEvents(events: Event[]) {
         for (const event of events) {
-            console.log(event.handle.arguments);
+            console.log(event.handle.toString());
             this.on(event.id, (...args) => event.handle(this, ...args));
         }
     }
