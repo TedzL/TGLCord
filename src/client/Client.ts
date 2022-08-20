@@ -16,6 +16,8 @@ export class Client extends BaseClient {
         console.log("Initialised base client");
         console.log("Loading events:")
         this.loadEvents(eventsFolder);
+
+        console.log("All done! - Bot loaded.")
     }
 
     loadEvents(eventsFolder: PathLike) {
