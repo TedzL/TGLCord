@@ -19,12 +19,13 @@ class Client extends discord_js_1.Client {
      * @param {fs.PathLike} eventsFolder - The absolute path for the events folder
      * @param {fs.PathLike} slashFolder - The absolute path for the slash commands folder
     */
-    constructor(token, options, eventsFolder, slashFolder) {
+    constructor(token, appID, options, eventsFolder, slashFolder) {
         console.log("Starting bot...");
         super(options);
         this.commands = new discord_js_1.Collection();
         console.log("Initialised base client");
         this.token = token;
+        this.appID = appID;
         console.log("Loading events:");
         this.loadEvents(eventsFolder);
         console.log("Loading commands:");
@@ -43,7 +44,7 @@ class Client extends discord_js_1.Client {
             if (commandData.length === 0)
                 return;
             const rest = new rest_1.REST({ version: '10' }).setToken(this.token);
-            yield rest.put(discord_js_1.Routes.applicationGuildCommands(this.application.id, '906348691764420669'), { body: commandData });
+            yield rest.put(discord_js_1.Routes.applicationGuildCommands(this.appID, '906348691764420669'), { body: commandData });
             this.on('interactionCreate', interaction => {
                 if (!interaction.isChatInputCommand())
                     return;

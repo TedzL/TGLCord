@@ -6,6 +6,7 @@ import { Event } from '../structures/Event';
 import { EventArgs } from '../typings/Events';
 
 export class Client extends BaseClient {
+    appID: string;
     token: string;
     commands: Collection<string, Command> = new Collection();
 
@@ -14,13 +15,14 @@ export class Client extends BaseClient {
      * @param {fs.PathLike} eventsFolder - The absolute path for the events folder
      * @param {fs.PathLike} slashFolder - The absolute path for the slash commands folder
     */
-    constructor(token: string, options: ClientOptions, eventsFolder: PathLike, slashFolder: PathLike) {
+    constructor(token: string, appID: string, options: ClientOptions, eventsFolder: PathLike, slashFolder: PathLike) {
         console.log("Starting bot...");
         super(options);
         console.log("Initialised base client");
 
         this.token = token;
-
+        this.appID = appID;
+        
         console.log("Loading events:");
         this.loadEvents(eventsFolder);
 
@@ -44,7 +46,7 @@ export class Client extends BaseClient {
         if (commandData.length === 0) return;
 
         const rest = new REST({ version: '10' }).setToken(this.token);
-        await rest.put(Routes.applicationGuildCommands(this.application!.id, '906348691764420669'), { body: commandData });
+        await rest.put(Routes.applicationGuildCommands(this.appID, '906348691764420669'), { body: commandData });
 
         this.on('interactionCreate', interaction => {
             if (!interaction.isChatInputCommand()) return;
