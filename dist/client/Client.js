@@ -19,14 +19,14 @@ class Client extends discord_js_1.Client {
      * @param {fs.PathLike} eventsFolder - The absolute path for the events folder
      * @param {fs.PathLike} slashFolder - The absolute path for the slash commands folder
     */
-    constructor(token, options, eventsFolder, slashFolder) {
+    constructor(token, options, events, slashFolder) {
         console.log("Starting bot...");
         super(options);
         this.commands = new discord_js_1.Collection();
         console.log("Initialised base client");
         this.token = token;
         console.log("Loading events:");
-        this.loadEvents(eventsFolder);
+        this.loadEvents(events);
         console.log("Loading commands:");
         this.loadSlashCommands(slashFolder);
         console.log("All done! - Bot loaded.");
@@ -52,14 +52,11 @@ class Client extends discord_js_1.Client {
             });
         });
     }
-    loadEvents(eventsFolder) {
-        const eventFiles = (0, fs_1.readdirSync)(eventsFolder).filter(file => file.endsWith('.js') && !file.startsWith('_'));
-        for (const file of eventFiles) {
-            const event = require(`${eventsFolder}/${file}`);
+    loadEvents(events) {
+        for (const event of events) {
+            console.log(event.handle.arguments);
             this.on(event.id, (...args) => event.handle(this, ...args));
         }
     }
 }
 exports.Client = Client;
-function abc(args) {
-}

@@ -14,7 +14,7 @@ export class Client extends BaseClient {
      * @param {fs.PathLike} eventsFolder - The absolute path for the events folder
      * @param {fs.PathLike} slashFolder - The absolute path for the slash commands folder
     */
-    constructor(token: string, options: ClientOptions, eventsFolder: PathLike, slashFolder: PathLike) {
+    constructor(token: string, options: ClientOptions, events: Event[], slashFolder: PathLike) {
         console.log("Starting bot...");
         super(options);
         console.log("Initialised base client");
@@ -22,7 +22,7 @@ export class Client extends BaseClient {
         this.token = token;
 
         console.log("Loading events:");
-        this.loadEvents(eventsFolder);
+        this.loadEvents(events);
 
         console.log("Loading commands:");
         this.loadSlashCommands(slashFolder);
@@ -54,15 +54,10 @@ export class Client extends BaseClient {
         })        
     }
 
-    loadEvents(eventsFolder: PathLike) {
-        const eventFiles = readdirSync(eventsFolder).filter(file => file.endsWith('.js') && !file.startsWith('_'));
-        for (const file of eventFiles) {
-            const event: Event = require(`${eventsFolder}/${file}`);
+    loadEvents(events: Event[]) {
+        for (const event of events) {
+            console.log(event.handle.arguments);
             this.on(event.id, (...args) => event.handle(this, ...args));
         }
     }
-}
-
-function abc(args: EventArgs) {
-
 }
