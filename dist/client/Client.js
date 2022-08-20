@@ -12,9 +12,10 @@ class Client extends discord_js_1.Client {
     constructor(options, eventsFolder, slashFolder) {
         console.log("Starting bot...");
         super(options);
-        console.log("Initilaised base client");
+        console.log("Initialised base client");
         console.log("Loading events:");
         this.loadEvents(eventsFolder);
+        console.log("All done! - Bot loaded.");
     }
     loadEvents(eventsFolder) {
         const eventFiles = (0, fs_1.readdirSync)(eventsFolder).filter(file => file.endsWith('.js') && !file.startsWith('_'));
