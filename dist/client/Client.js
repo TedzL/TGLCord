@@ -40,8 +40,10 @@ class Client extends discord_js_1.Client {
                 commandData.push(command.data.toJSON());
                 this.commands.set(command.data.name, command);
             }
+            if (commandData.length === 0)
+                return;
             const rest = new rest_1.REST({ version: '10' }).setToken(this.token);
-            yield rest.put(discord_js_1.Routes.applicationGuildCommands(this.application.id, '906348691764420669'));
+            yield rest.put(discord_js_1.Routes.applicationGuildCommands(this.application.id, '906348691764420669'), { body: commandData });
             this.on('interactionCreate', interaction => {
                 if (!interaction.isChatInputCommand())
                     return;

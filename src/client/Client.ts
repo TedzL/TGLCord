@@ -41,8 +41,10 @@ export class Client extends BaseClient {
             this.commands.set(command.data.name, command);                        
         }
 
+        if (commandData.length === 0) return;
+
         const rest = new REST({ version: '10' }).setToken(this.token);
-        await rest.put(Routes.applicationGuildCommands(this.application!.id, '906348691764420669'));
+        await rest.put(Routes.applicationGuildCommands(this.application!.id, '906348691764420669'), { body: commandData });
 
         this.on('interactionCreate', interaction => {
             if (!interaction.isChatInputCommand()) return;
