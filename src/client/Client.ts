@@ -13,7 +13,7 @@ export class Client extends BaseClient {
     constructor(options: ClientOptions, eventsFolder: PathLike, slashFolder: PathLike) {
         console.log("Starting bot...");
         super(options);
-        console.log("Initilaised base client");
+        console.log("Initialised base client");
         console.log("Loading events:")
         this.loadEvents(eventsFolder);
     }
