@@ -52,7 +52,7 @@ export class Client extends BaseClient {
             if (!interaction.isChatInputCommand()) return;
 
             const command = this.commands.get(interaction.commandName);
-            command?.handle(interaction);
+            command?.handle(this, interaction);
         })        
     }
 

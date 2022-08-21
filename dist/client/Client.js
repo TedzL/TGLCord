@@ -49,7 +49,7 @@ class Client extends discord_js_1.Client {
                 if (!interaction.isChatInputCommand())
                     return;
                 const command = this.commands.get(interaction.commandName);
-                command === null || command === void 0 ? void 0 : command.handle(interaction);
+                command === null || command === void 0 ? void 0 : command.handle(this, interaction);
             });
         });
     }
